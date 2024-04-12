@@ -20,7 +20,7 @@ const Input = memo(({ text, onChange }) => {
 //кастомный хук для отложенного вызова
 const useDebouncedValue = (value, ms) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
-
+  //const timerRef = useRef(null)
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedValue(value);
@@ -33,18 +33,6 @@ const useDebouncedValue = (value, ms) => {
 
   return debouncedValue;
 };
-
-//функция debounce
-function debounce(func, ms) {
-  let isDown = false;
-
-  return function () {
-    if (isDown) return;
-    func.apply(this, arguments);
-    isDown = true;
-    setTimeout(() => (isDown = false), ms);
-  };
-}
 
 export const CachedFilterFetch = () => {
   const [filterText, setFilterText] = useState("");
