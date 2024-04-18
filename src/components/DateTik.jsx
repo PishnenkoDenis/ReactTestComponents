@@ -9,11 +9,11 @@ const Button = memo(({ onClick, children }) => {
 
 export const DateTik = () => {
   const [date, setDate] = useState(new Date());
-  const dateRef = useRef(date);
-
+  const dateRef = useRef(date);//значение сохр-ся в ref для дальнейшей передачи
+ //актуального значения в функцию
   const tik = useCallback(() => {
     setDate(new Date());
-    dateRef.current = new Date();
+    dateRef.current = new Date();//обновляется ref для поддержки актульного значения в ref
   }, [setDate, dateRef]);
 
   useEffect(() => {
