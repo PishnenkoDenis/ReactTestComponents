@@ -15,17 +15,18 @@ const Button = memo(({ onClick, children }) => {
 const useLatest = (value) => {
   const valueRef = useRef(value); //стабильное значение, присвоеное впервые
 
-  valueRef.current = value; //Обновление ref при обновлении значения handler.Подходит для React 17
+  //valueRef.current = value; //Обновление ref при обновлении значения handler.Подходит для React 17
+
+  //Обновление ref для React 18 при конкурентном рендеринге
+  useLayoutEffect(() => {
+    valueRef.current = value;
+  });
 
   return valueRef;
 };
 
 const WindowEvent = ({ event, handler, options }) => {
   const handlerRef = useLatest(handler);
-
-  useLayoutEffect(() => {
-    handlerRef.current = handler;
-  }, [handlerRef, handler]); //Обновление ref для React 18
 
   useEffect(() => {
     //функция для хранения актуального значения ref
@@ -38,7 +39,7 @@ const WindowEvent = ({ event, handler, options }) => {
     return () => {
       window.removeEventListener(event, callback, options);
     };
-  }, [event, options]);
+  }, [event, options, handlerRef]);
 
   return null;
 };
