@@ -12,12 +12,12 @@ const Button = memo(({ onClick, children }) => {
 });
 
 const WindowEvent = ({ event, handler, options }) => {
-  const handlerRef = useRef(handler);
-  handlerRef.current = handler; //подходит для React 17
+  const handlerRef = useRef(handler);//стабильное значение, присвоеное впервые
+  handlerRef.current = handler; //Обновление ref при обновлении значения handler.Подходит для React 17
 
   useLayoutEffect(() => {
     handlerRef.current = handler;
-  }, [handler]); //для React 18
+  }, [handler]); //Обновление ref для React 18
 
   useEffect(() => {
     //функция для хранения актуального значения ref
