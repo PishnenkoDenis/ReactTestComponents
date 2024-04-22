@@ -1,8 +1,17 @@
-import React, { memo, useReducer } from "react";
+import React, { memo, useCallback, useReducer, useState } from "react";
 
 const Button = memo(({ onClick, children }) => {
   return <button onClick={onClick}>{children}</button>;
 });
+
+//хук, который возвращает boolean state
+export const UseBooleanState = () => {
+  const [isValue, setIsValue] = useState(false);
+
+  const toggle = useCallback(() => setIsValue((prev) => !prev), [setIsValue]);
+
+  return [isValue, toggle];
+};
 
 export const IsVisibleReducer = () => {
   //заменяет useState  и коллбэк, передаваемый в дочерний компонент стабильный
