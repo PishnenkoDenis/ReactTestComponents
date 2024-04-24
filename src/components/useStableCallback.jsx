@@ -14,7 +14,7 @@ const Component = memo(({ count, onClick }) => {
 });
 //хук для того, чтобы прокинуть в дочерний компонент функцию типа () => setCount(count + 1),
 //а не через useCallback
-export const useStableCallback = (callback) => {
+export const useConstantCallback = (callback) => {
   const ref = useRef(callback);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const useStableCallback = (callback) => {
 export const StableApp = () => {
   const [count, setCount] = useState(0);
 
-  const handleClickStable = useStableCallback(() => setCount(count + 1));
+  const handleClickStable = useConstantCallback(() => setCount(count + 1));
 
   return (
     <div>
